@@ -78,156 +78,156 @@ function ( Query, QueryTask, declare, FeatureLayer, lang, on, esriapi, dom ) {
 					}));
 				}));
 // Profile and Profile DD selection complete //////////////////////////////////////////////////////////////////////////////////////////
-				t.profileDD.on('selection-complete', lang.hitch(t,function(evt){
-					var index = t.obj.visibleLayers.indexOf(t.selectedProfile);
-					if(evt.features.length > 0){
-						t.proInitExtent = t.map.extent;
-						t.proExtent = evt.features[0].geometry.getExtent().expand(1.5);
-						t.atts = evt.features[0].attributes;
-						t.obj.profileName = t.atts.name;
-						t.obj.selectedProWhere = 'OBJECTID = ' + t.atts.OBJECTID;
-						t.layerDefinitions[t.selectedProfile] = t.obj.selectedProWhere;
-						t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
-						// add profile selection layer
-						if(index == -1){
-							t.obj.visibleLayers.push(t.selectedProfile);
-							t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-						}
-						$('#' + t.id + 'profileName').html('Water Market Case Study: ' + t.profileName)
-						$('#' + t.id + 'profileName').slideDown();
-						$('#' + t.id + 'profileAttWrap').slideDown();
-						$('#' + t.id + 'sh_openProfilePdf').html("<a id='sh_openProfilePdf' class='sh_zoomToText' href='plugins/water_share/assets/" + t.profileName +".pdf' target='_blank'>View Water Basin Profile</a>")
-					}else{
-						$('#' + t.id + 'ch-pro').val('').trigger('chosen:updated').trigger('change');
-						t.obj.selectedProWhere = '';
-						if (index > -1) {
-							t.obj.visibleLayers.splice(index, 1);						
-						}
-						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-						// slide up profile elements if no profile selected
-						$('#' + t.id + 'profileName').slideUp();
-						$('#' + t.id + 'profileAttWrap').slideUp();
-					}
-				}));
-				t.profile.on('selection-complete', lang.hitch(t,function(evt){
-					if(evt.features.length > 0){
-						t.proInitExtent = t.map.extent;
-						t.proExtent = evt.features[0].geometry.getExtent().expand(1.5);
-						t.profileNameClick = evt.features[0].attributes.name;
-						var p = 'p'
-						$('#' + t.id + 'ch-pro').val(t.profileNameClick).trigger('chosen:updated').trigger('change', p);
-					}else{
-						$('#' + t.id + 'ch-pro').val('').trigger('chosen:updated').trigger('change');
-					}
-				}));
+				// t.profileDD.on('selection-complete', lang.hitch(t,function(evt){
+				// 	var index = t.obj.visibleLayers.indexOf(t.selectedProfile);
+				// 	if(evt.features.length > 0){
+				// 		t.proInitExtent = t.map.extent;
+				// 		t.proExtent = evt.features[0].geometry.getExtent().expand(1.5);
+				// 		t.atts = evt.features[0].attributes;
+				// 		t.obj.profileName = t.atts.name;
+				// 		t.obj.selectedProWhere = 'OBJECTID = ' + t.atts.OBJECTID;
+				// 		t.layerDefinitions[t.selectedProfile] = t.obj.selectedProWhere;
+				// 		t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
+				// 		// add profile selection layer
+				// 		if(index == -1){
+				// 			t.obj.visibleLayers.push(t.selectedProfile);
+				// 			t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+				// 		}
+				// 		$('#' + t.id + 'profileName').html('Water Market Case Study: ' + t.profileName)
+				// 		$('#' + t.id + 'profileName').slideDown();
+				// 		$('#' + t.id + 'profileAttWrap').slideDown();
+				// 		$('#' + t.id + 'sh_openProfilePdf').html("<a id='sh_openProfilePdf' class='sh_zoomToText' href='plugins/water_share/assets/" + t.profileName +".pdf' target='_blank'>View Water Basin Profile</a>")
+				// 	}else{
+				// 		$('#' + t.id + 'ch-pro').val('').trigger('chosen:updated').trigger('change');
+				// 		t.obj.selectedProWhere = '';
+				// 		if (index > -1) {
+				// 			t.obj.visibleLayers.splice(index, 1);						
+				// 		}
+				// 		t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+				// 		// slide up profile elements if no profile selected
+				// 		$('#' + t.id + 'profileName').slideUp();
+				// 		$('#' + t.id + 'profileAttWrap').slideUp();
+				// 	}
+				// }));
+				// t.profile.on('selection-complete', lang.hitch(t,function(evt){
+				// 	if(evt.features.length > 0){
+				// 		t.proInitExtent = t.map.extent;
+				// 		t.proExtent = evt.features[0].geometry.getExtent().expand(1.5);
+				// 		t.profileNameClick = evt.features[0].attributes.name;
+				// 		var p = 'p'
+				// 		$('#' + t.id + 'ch-pro').val(t.profileNameClick).trigger('chosen:updated').trigger('change', p);
+				// 	}else{
+				// 		$('#' + t.id + 'ch-pro').val('').trigger('chosen:updated').trigger('change');
+				// 	}
+				// }));
 // Work with Zoom buttons //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////				
-				$('#' + t.id + 'zoomToFund').on('click',lang.hitch(t,function(){
-					if($('#' + t.id + 'zoomToFund').html() == ' Zoom'){
-						t.map.setExtent(t.featExtent, true);
-						$('#' + t.id + 'zoomToFund').html(' Back');
-					}else{
-						t.map.setExtent(t.initExtent, true);
-						$('#' + t.id + 'zoomToFund').html(' Zoom');
-					}
-				}));
+				// $('#' + t.id + 'zoomToFund').on('click',lang.hitch(t,function(){
+				// 	if($('#' + t.id + 'zoomToFund').html() == ' Zoom'){
+				// 		t.map.setExtent(t.featExtent, true);
+				// 		$('#' + t.id + 'zoomToFund').html(' Back');
+				// 	}else{
+				// 		t.map.setExtent(t.initExtent, true);
+				// 		$('#' + t.id + 'zoomToFund').html(' Zoom');
+				// 	}
+				// }));
 				
-				$('#' + t.id + 'zoomToProfile').on('click',lang.hitch(t,function(){
-					if($('#' + t.id + 'zoomToProfile').html() == 'Zoom to Profile'){
-						t.map.setExtent(t.proExtent, true);
-						$('#' + t.id + 'zoomToProfile').html('Back');
-					}else{
-						t.map.setExtent(t.proInitExtent, true);
-						$('#' + t.id + 'zoomToProfile').html('Zoom to Profile');
-					}
-				}));
+				// $('#' + t.id + 'zoomToProfile').on('click',lang.hitch(t,function(){
+				// 	if($('#' + t.id + 'zoomToProfile').html() == 'Zoom to Profile'){
+				// 		t.map.setExtent(t.proExtent, true);
+				// 		$('#' + t.id + 'zoomToProfile').html('Back');
+				// 	}else{
+				// 		t.map.setExtent(t.proInitExtent, true);
+				// 		$('#' + t.id + 'zoomToProfile').html('Zoom to Profile');
+				// 	}
+				// }));
 
 // Depletion, category, and profile header clicks //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 				// click on depletion header 
-				$('#' + t.id + 'depHeader').on('click',lang.hitch(t,function(c){
-					if(t.obj.accordSection != 'dep'){
-						t.obj.accordSection = 'dep';
-						$('#' + t.id + 'ch-pro').val('').trigger('chosen:updated').trigger('change');
-						$('#' + t.id + 'sh_chartWrap').hide();
-						$('#' + t.id + 'sh_chartClick').show();
-						t.map.graphics.clear()
-						t.profile.clear();
-						t.obj.visibleLayers = [17];
-						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-					}
-				}));
-				// click on catagory header 
-				$('#' + t.id + 'catHeader').on('click',lang.hitch(t,function(c){
-					if(t.obj.accordSection != 'cat'){
-						t.obj.accordSection = 'cat';
-						$('#' + t.id + 'ch-pro').val('').trigger('chosen:updated').trigger('change');
-						t.obj.visibleLayers = [1];
-						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-						// trigger click on stop button to stop animation if its going.
-						$('#' + t.id + 'sliderStop').trigger('click');
-						t.clicks.categorySelComplete(t);
-					}
-				}));
-				// click on profile header
-				$('#' + t.id + 'proHeader').on('click',lang.hitch(t,function(c){
-					if(t.obj.accordSection != 'pro'){
-						t.obj.accordSection = 'pro';
-						$('#' + t.id + 'sh_chartWrap').hide();
-						$('#' + t.id + 'sh_chartClick').show();
-						t.obj.visibleLayers = [3];
-						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-					}
-				}));
+				// $('#' + t.id + 'depHeader').on('click',lang.hitch(t,function(c){
+				// 	if(t.obj.accordSection != 'dep'){
+				// 		t.obj.accordSection = 'dep';
+				// 		$('#' + t.id + 'ch-pro').val('').trigger('chosen:updated').trigger('change');
+				// 		$('#' + t.id + 'sh_chartWrap').hide();
+				// 		$('#' + t.id + 'sh_chartClick').show();
+				// 		t.map.graphics.clear()
+				// 		t.profile.clear();
+				// 		t.obj.visibleLayers = [17];
+				// 		t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+				// 	}
+				// }));
+				// // click on catagory header 
+				// $('#' + t.id + 'catHeader').on('click',lang.hitch(t,function(c){
+				// 	if(t.obj.accordSection != 'cat'){
+				// 		t.obj.accordSection = 'cat';
+				// 		$('#' + t.id + 'ch-pro').val('').trigger('chosen:updated').trigger('change');
+				// 		t.obj.visibleLayers = [1];
+				// 		t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+				// 		// trigger click on stop button to stop animation if its going.
+				// 		$('#' + t.id + 'sliderStop').trigger('click');
+				// 		t.clicks.categorySelComplete(t);
+				// 	}
+				// }));
+				// // click on profile header
+				// $('#' + t.id + 'proHeader').on('click',lang.hitch(t,function(c){
+				// 	if(t.obj.accordSection != 'pro'){
+				// 		t.obj.accordSection = 'pro';
+				// 		$('#' + t.id + 'sh_chartWrap').hide();
+				// 		$('#' + t.id + 'sh_chartClick').show();
+				// 		t.obj.visibleLayers = [3];
+				// 		t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+				// 	}
+				// }));
 				
 // Work with depletion slider and event listener //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				// SET UP SLIDER AND ADD EVENT LISTENER //////////////////
-				var vals = 13;
-				t.labels = ['1900','1910','1920', '1930', '1940', '1950', '1960', '1970', '1980', '1985', '1990', '1995', '2000', '2005'];
-				for (var i = 0; i <= vals; i++) {
-					var el = $('<label>'+(t.labels[i])+'</label>').css('left',(i/vals*100)+'%');
-					$('#' + t.id + 'sh_multiYearSlider').append(el);
-				}
-				// year range slider
-				$('#' + t.id + 'sh_multiYearSlider').slider({range:false, min:0, max:13,value:0, step:1});
+				// // SET UP SLIDER AND ADD EVENT LISTENER //////////////////
+				// var vals = 13;
+				// t.labels = ['1900','1910','1920', '1930', '1940', '1950', '1960', '1970', '1980', '1985', '1990', '1995', '2000', '2005'];
+				// for (var i = 0; i <= vals; i++) {
+				// 	var el = $('<label>'+(t.labels[i])+'</label>').css('left',(i/vals*100)+'%');
+				// 	$('#' + t.id + 'sh_multiYearSlider').append(el);
+				// }
+				// // year range slider
+				// $('#' + t.id + 'sh_multiYearSlider').slider({range:false, min:0, max:13,value:0, step:1});
 				
-				$('#' + t.id + 'sh_multiYearSlider').on('slide', lang.hitch(t,function(w,evt){
-					t.obj.sliderCounter = evt.value;
-					t.clicks.updateSlider(t);
-					$('#' + t.yearID).html('<div class="sh_yearMapText" id="yearMapText">' + t.labels[t.obj.sliderCounter] + '</div>');
-					if (t.obj.sliderPlayBtn  == 'play'){
-						t.obj.sliderPlayBtn  == ''
-						$('#' + t.id + 'sliderStop').trigger('click');
-					}
-				}));
-				// slider play button click
-				$('#' + t.id + 'sliderPlay').on('click', lang.hitch(t,function(){
-					console.log("click")
-					// show year text
-					$('#' + t.yearID).show();
-					t.obj.sliderPlayBtn  = 'play' 
-					t.setInt = setInterval(function(){
-						$('#' + t.yearID).html('<div class="sh_yearMapText" id="yearMapText">' + t.labels[t.obj.sliderCounter] + '</div>');
-						$('#' + t.id + 'sh_multiYearSlider').slider('value',t.obj.sliderCounter);
-						t.clicks.updateSlider(t);
-						t.obj.sliderCounter++
-						if(t.obj.sliderCounter>13){
-							t.obj.sliderCounter = 0
-						}
-					}, 1000);
-				}));
-				//slider stop button click
-				$('#' + t.id + 'sliderStop').on('click', lang.hitch(t,function(){
-					// hide year text
-					$('#' + t.yearID).hide();
-					clearInterval(t.setInt);
-					t.obj.sliderPlayBtn  = '';
-					t.obj.sliderCounter = 0;
-					$('#' + t.yearID).html('<div class="sh_yearMapText" id="yearMapText">1900</div>');
-					//t.clicks.updateSlider(t);
-				}));
-// Build innit chart labels //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				// set init val
-				t.monthYearClick = 'month'
-				t.chartLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+				// $('#' + t.id + 'sh_multiYearSlider').on('slide', lang.hitch(t,function(w,evt){
+				// 	t.obj.sliderCounter = evt.value;
+				// 	t.clicks.updateSlider(t);
+				// 	$('#' + t.yearID).html('<div class="sh_yearMapText" id="yearMapText">' + t.labels[t.obj.sliderCounter] + '</div>');
+				// 	if (t.obj.sliderPlayBtn  == 'play'){
+				// 		t.obj.sliderPlayBtn  == ''
+				// 		$('#' + t.id + 'sliderStop').trigger('click');
+				// 	}
+				// }));
+// 				// slider play button click
+// 				$('#' + t.id + 'sliderPlay').on('click', lang.hitch(t,function(){
+// 					console.log("click")
+// 					// show year text
+// 					$('#' + t.yearID).show();
+// 					t.obj.sliderPlayBtn  = 'play' 
+// 					t.setInt = setInterval(function(){
+// 						$('#' + t.yearID).html('<div class="sh_yearMapText" id="yearMapText">' + t.labels[t.obj.sliderCounter] + '</div>');
+// 						$('#' + t.id + 'sh_multiYearSlider').slider('value',t.obj.sliderCounter);
+// 						t.clicks.updateSlider(t);
+// 						t.obj.sliderCounter++
+// 						if(t.obj.sliderCounter>13){
+// 							t.obj.sliderCounter = 0
+// 						}
+// 					}, 1000);
+// 				}));
+// 				//slider stop button click
+// 				$('#' + t.id + 'sliderStop').on('click', lang.hitch(t,function(){
+// 					// hide year text
+// 					$('#' + t.yearID).hide();
+// 					clearInterval(t.setInt);
+// 					t.obj.sliderPlayBtn  = '';
+// 					t.obj.sliderCounter = 0;
+// 					$('#' + t.yearID).html('<div class="sh_yearMapText" id="yearMapText">1900</div>');
+// 					//t.clicks.updateSlider(t);
+// 				}));
+// // Build innit chart labels //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 				// set init val
+// 				t.monthYearClick = 'month'
+// 				t.chartLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 			},
 			
 // Build chart for category section ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
