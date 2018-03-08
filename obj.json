@@ -1,17 +1,3 @@
 {
-	"visibleLayers": [4],
-	"setStateVisLayers": [],
-	"chartVisBtn": "rawBtn",
-	"sliderCounter": 0,
-	"stateSet": "no",
-	"accordVisible": "",
-	"accordHidden": "",
-	"accordActive": 0,
-	"buttonText": "",
-	"extent": "",
-	"selectedBasinWhere": "",
-	"pnt": "",
-	"accordSection": "dep",
-	"sliderPlayBtn": "",
-	"profileName": ""
+	"visibleLayers": [4]
 }
