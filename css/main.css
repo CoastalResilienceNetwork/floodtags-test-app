@@ -1,2 +1,67 @@
 /* main style for the floodtags app */
-
+#dijit_layout_ContentPane_0powerBI1Wrapper .explorationContainer .exploreCanvas{
+	background-color: red !important;
+}
+.hide{
+	display: none;
+}
+hr{
+	width: 97%; margin-left: 4px; margin: 15px 0 15px 4px;
+}
+/*.mainContentWrapper{
+	margin: auto; padding-left: 4px;
+}*/
+.ind-stickyHeader{
+	position: absolute; z-index: 1000; background-color: white; box-shadow: 0 2px 2px rgba(16,22,26,.5);
+	padding-left: 4px;
+}
+.ind-mainRadBtnWrapper{
+	padding-left: 6px;
+}
+.ind-mainRadBtnWrapper label{
+	font-size: 15px;
+}
+.ind-contentBelowHeader{
+	position: relative; margin-top: 134px; padding-left: 4px;
+}
+/* flood event legend styles */
+.ind-floodLegendWrapper{
+	margin: auto;
+}
+.ind-floodDivWrapper{
+	justify-content: center;
+}
+.ind-floodWrapper{
+	text-align: center;
+}
+.ind-labelsWrapper{
+	display: flex;
+}
+/*.ind-labelsWrapper div{
+	display: flex;
+}*/
+.ind-floodDivWrapper{
+	display: flex;
+}
+.ind-floodLegendDiv{
+	width: 100px; height: 20px; font-size: 14px; text-align: center; margin: 2px;
+}
+/* style for power bi line chart for num of flood events */
+.ind-numFloodEventsHeader{
+	background-color: white; position: absolute; top: 124px; height: 35px; width: 98%;
+}
+.ind-numFloodEvents{
+	margin-top: 30px;
+}
+.ind-floodEventsXaxis{
+	background-color: white; width: 98%; position: absolute; top: 424px; height: 70px;
+}
+.ind-placesAffectedHeader{
+	background-color: white; top: 607px; position: absolute; height: 35px; width: 98%;
+}
+.ind-placesAffectedBottom{
+	width: 98%; position: absolute; top: 907px; background-color: white; height: 70px;
+}
+.ind-liveHoodSpan{
+	font-size: 23px;
+}

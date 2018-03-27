@@ -4,5 +4,85 @@ takes the ContentPane id and prepends it to every element with a declared id in 
 The unique ContentPane id makes all the element ids unique and prevents duplicate id errors across other apps.-->
 
 <!-- Main Content Wrapper -->
-<h1>Hello Indonesia!!!</h1>
+<!-- <h1>Hello Indonesia!!!</h1> -->
+<div class="mainContentWrapper">
+	<div class="ind-stickyHeader">
+		<h1 style="font-size: 17px;">How would you like to explore Semarang Indonesia?</h1>
+		<div id="mainRadBtnWrapper" class="ind-mainRadBtnWrapper">
+			<label class="form-component" for="a-option">
+				<input checked type="radio" id="a-option" name="main" value="flood">
+				<div class="check"></div>
+				<span class="form-text">See how flood events are affecting the population.</span>
+			</label>
+			<label class="form-component" for="b-option">
+				<input type="radio" id="b-option" name="main" value="mangrove">
+				<div class="check"></div>
+				<span class="form-text">View mangrove restoration opportunities.</span>
+			</label>
+		</div>
+	</div>
 	
+	<div class="ind-contentBelowHeader">
+		<div class="ind-floodWrapper" id="floodWrapper">
+			<h1>All flood events in Semarang</h1>
+			<h3>24 Flood Related Tweets</h3>
+			<div id="floodLegendWrapper" class="ind-floodLegendWrapper">
+				<!-- <div id="labelsWrapper" class="ind-labelsWrapper">
+					<div>1</div>
+					<div>2</div>
+					<div>3</div>
+					<div>4</div>
+				</div> -->
+				<div id="divWrapper" class="ind-floodDivWrapper">
+					<div class="ind-floodLegendDiv" style="background-color: #a1dab4; width: 150px">12</div>
+					<div class="ind-floodLegendDiv" style="background-color: #41b6c4; width: 75px">4</div>
+					<div class="ind-floodLegendDiv" style="background-color: #225ea8; width: 100px">8</div>
+				</div>
+			</div>
+			<hr>
+			<div id="powerBIfloodEventsWrapper" class="ind-numFloodEvents">
+				<h1 id="numFloodEventsHeader" class="ind-numFloodEventsHeader">Number of flood events for the past 7 days</h1>
+				<div id="numFloodEvents">
+					<iframe width="400" height="350" src="https://app.powerbi.com/view?r=eyJrIjoiOThjMGI2ODgtOWJkNS00MDIyLWFjNWUtNDkyNWEyYWU5MzZlIiwidCI6Ijc5YmU2ZGMxLWQ3OGUtNGJiYi1iMjJiLWQ5OTRjMGE0MTdhNyIsImMiOjF9" frameborder="0" allowFullScreen="true"></iframe>
+				</div>
+				<div class="ind-floodEventsXaxis">Past 7 days</div>
+
+			</div>
+			
+			<div class="ind-peopleAffectedWrapper">
+				<hr>
+				<h1>12,768 People Affected</h1>
+				<div id="peopleAffected" class="ind-peopleAffectedWrapper">
+					<div id="divWrapper" class="ind-floodDivWrapper">
+						<div class="ind-floodLegendDiv" style="background-color: #ed7d31; width: 150px">Male (6,325)</div>
+						<div class="ind-floodLegendDiv" style="background-color: #ffc001; width: 170px">Female (6,443)</div>
+					</div>
+				</div>
+				<hr>
+			</div>
+			<div class="ind-placesAffectedWrapper">
+				<h1 class="ind-placesAffectedHeader">47 Places Affected</h1>
+				<iframe width="400" height="350" src="https://app.powerbi.com/view?r=eyJrIjoiZjYwNzA2NTAtMGM1OS00ZmFhLTg2YmQtOTJlNWVlMDYzNWIzIiwidCI6Ijc5YmU2ZGMxLWQ3OGUtNGJiYi1iMjJiLWQ5OTRjMGE0MTdhNyIsImMiOjF9" frameborder="0" allowFullScreen="true"></iframe>
+				<div class="ind-placesAffectedBottom"></div>
+			</div>
+			<div class="">
+				<div class="">
+					<hr>
+					<h1>Livelihoods Affected</h1>
+					<h4><span class="ind-liveHoodSpan">125</span> km of Roads</h4>
+					<h4><span class="ind-liveHoodSpan">67</span> ha of Agricultural Land</h4>
+					<h4><span class="ind-liveHoodSpan">12</span> ha of Rice Fields</h4>
+				</div>
+				
+
+
+
+			</div>
+		</div>
+		<div class="ind-mangroveWrapper hide" id="mangroveWrapper">
+			<p>Mangrove section coming soon?????</p>
+		</div>
+	</div>
+	
+	
+</div>
