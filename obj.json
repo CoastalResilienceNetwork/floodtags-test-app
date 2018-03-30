@@ -1,17 +1,12 @@
 {
-	"visibleLayers": [4],
-	"setStateVisLayers": [],
-	"chartVisBtn": "rawBtn",
-	"sliderCounter": 0,
-	"stateSet": "no",
-	"accordVisible": "",
-	"accordHidden": "",
-	"accordActive": 0,
-	"buttonText": "",
+	"visibleLayers": [0],
+	"toggleSel": "",
 	"extent": "",
-	"selectedBasinWhere": "",
-	"pnt": "",
-	"accordSection": "dep",
-	"sliderPlayBtn": "",
-	"profileName": ""
+	"stateSet": "no",
+	"queryTracker": "3",
+	"toggleTracker": "habitat",
+	"query": "",
+	"cbTracker": [],
+	"radButtonTracker": "",
+	"layerDefinitions": []
 }

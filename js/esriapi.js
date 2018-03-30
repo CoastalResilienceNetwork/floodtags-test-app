@@ -1,141 +1,138 @@
 define([
 	"esri/layers/ArcGISDynamicMapServiceLayer", "esri/geometry/Extent", "esri/SpatialReference", "esri/tasks/query" ,"esri/tasks/QueryTask", "dojo/_base/declare", "esri/layers/FeatureLayer", 
-	"esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol", "esri/graphic", "dojo/_base/Color", "dojo/_base/lang", "dojo/on"
+	"esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol","esri/symbols/SimpleMarkerSymbol", "esri/graphic", "dojo/_base/Color","esri/layers/GraphicsLayer"
 ],
 function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, QueryTask, declare, FeatureLayer, 
-			SimpleLineSymbol, SimpleFillSymbol, Graphic, Color, lang, on) {
+			SimpleLineSymbol, SimpleFillSymbol, SimpleMarkerSymbol, Graphic, Color, GraphicsLayer) {
         "use strict";
 
         return declare(null, {
-			esriApiFunctions: function(t){
-				// define dynamic layer numbers
-				t.selectedBasin = 0;
-				t.selectedProfile = 2;
-				t.layerDefinitions = [];
-// build the dropdown menu for the profiles section with the code below. ////////////////////////////////////////////////////////////////////
-				var queryTask = new QueryTask(t.url + "/3")
-				var query = new Query();
-				query.returnGeometry = false;
-				query.where = "OBJECTID > -1"
-				queryTask.execute(query, lang.hitch(t, function(results){
-					var profiles = [];
-					$.each(results.features,lang.hitch(this, function(i,v){
-						profiles.push(v.attributes.name)
-					}));
-					profiles.sort()
-					$('#' + t.id + 'ch-pro').empty();
-					$('#' + t.id + 'ch-pro').append("<option value=''></option>")
-					$.each(profiles, lang.hitch(this, function(i,v){
-						$('#' + t.id + 'ch-pro').append("<option value='" + v + "'>" + v + "</option>")
-					})); 
-					$('#' + t.id + 'ch-pro').trigger("chosen:updated");
-				}));
-					
-// Add dynamic map service ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				t.dynamicLayer = new ArcGISDynamicMapServiceLayer(t.url, {opacity:0.7});
+			esriApiFunctions: function(t){	
+				// Add dynamic map service
+				t.dynamicLayer = new ArcGISDynamicMapServiceLayer(t.url, {opacity:0.9});
 				t.map.addLayer(t.dynamicLayer);
-				
 				if (t.obj.visibleLayers.length > 0){	
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 				}
-				t.dynamicLayer.on("load", lang.hitch(t, function () { 			
-					t.layersArray = t.dynamicLayer.layerInfos;
-					// Start with empty expressions
-					t.map.setMapCursor("pointer");
-					
-// State set work on dynamic layer load ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-					if (t.obj.stateSet == "yes"){
-						if(t.obj.accordActive == 1){
-							t.obj.selectedProWhere = '';
-						} else if(t.obj.accordActive == 2){
-							t.obj.selectedBasinWhere = ''
-						}else{
-							t.obj.selectedProWhere = '';
-							t.obj.selectedBasinWhere = ''
-						}
-						// accordion visibility
-						$('#' + t.id + t.obj.accordVisible).show();
-						$('#' + t.id + t.obj.accordHidden).hide();
-						$('#' + t.id + 'getHelpBtn').html(t.obj.buttonText);
-						t.clicks.updateAccord(t);
-						$('#' + t.id + t.obj.accordVisible).accordion( "option", "active", t.obj.accordActive );
+				t.dynamicLayer.on("load", function () {
 
-						// work with depletion section button
-						if(t.obj.sliderPlayBtn == 'play'){
-							$('#' + t.id + 'sliderPlay').trigger('click');
-						}
-						// Work with cat section in save and share
-						t.clicks.categorySelComplete(t);
-						// save and share category section
-						if (t.obj.selectedBasinWhere.length > 0){
-							var q = new Query();
-							q.where = t.obj.selectedBasinWhere;
-							t.category.selectFeatures(q,esri.layers.FeatureLayer.SELECTION_NEW);
-						} 
-						// save and share profile section
-						if(t.obj.selectedProWhere.length > 0){
-							var q = new Query();
-							q.where = t.obj.selectedProWhere;
-							t.profileDD.selectFeatures(q,esri.layers.FeatureLayer.SELECTION_NEW);
-							$('#' + t.id + 'ch-pro').val(t.obj.profileName).trigger('chosen:updated').trigger('change', p);
-						}
-						t.layerDefinitions[0] = t.obj.selectedBasinWhere;
-						t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
-						// Update the visible layers from set state vis layers
-						t.dynamicLayer.setVisibleLayers(t.obj.setStateVisLayers);
-						t.obj.stateSet = "no";
-					}else{
-						// set the initial visible layers on app load
-						t.obj.visibleLayers = [5];
-						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-						//t.clicks.layerDefsUpdate(t);
+// the code for the flood tags api is below and works as is //////////////////////////////////////////
+					console.time('log')
+					// get js utm time
+					var dateObj = new Date();
+					var month = dateObj.getUTCMonth() + 1; //months from 1-12
+					var day = dateObj.getUTCDate();
+					var year = dateObj.getUTCFullYear();
+
+					var newdate = year + "-" + month + "-" + day;
+
+					console.log(newdate);
+					var url = "https://api.floodtags.com/v1/tags/fews-world/geojson?until=" + newdate + "&since=2018-03-06&apiKey=e0692cae-eb63-4160-8850-52be0d7ef7fe"
+				    $.get( url, function( data ) {
+				      console.log(data)
+				      t.data2 = data;
+				      // add graphic to map function call
+				     //  t.clicks.addGeoJson(t);
+				    	// console.log(t.data2);
+				    	t.countiesGraphicsLayer = new GraphicsLayer({ id: "dataGraphic" });
+						$.each(t.data2.features, function(i,v){
+							let coordinates = v["geometry"]["coordinates"];
+							let attributes = v["properties"]
+							let point = {"geometry":{"points":[coordinates],"spatialReference":4326},
+						    "symbol":{"color":[255,208,100,255],"size":20,"angle":0,"xoffset":0,"yoffset":0,"type":"esriSMS","style":"esriSMSCircle", 
+						    "outline":{"color":[176,35,105,255],"width":1,"type":"esriSLS","style":"esriSLSSolid"}}, "attributes":attributes};
+						    var gra = new Graphic(point);
+						  	t.countiesGraphicsLayer.add(gra);
+						})
+						 t.map.addLayer(t.countiesGraphicsLayer);
+						 t.countiesGraphicsLayer.on("click",function (evt) {
+							console.log(evt.graphic.attributes)
+							
+						})
+						 console.timeEnd('log')
+				    });
+				    // var url2 = "https://api.floodtags.com/v1/tags/fews-world/t-959347183396016128&apiKey=e0692cae-eb63-4160-8850-52be0d7ef7fe"
+				    // to request a specific tag
+				    var url2 = "https://api.floodtags.com/v1/tags/t-964498811530989569"
+				    $.get( url2, function( data ) {
+				      console.log(data)
+				      t.data2 = data;
+				  	});
+
+				 
+
+					// User selections on chosen menus 
+					$('#' + t.id + 'ch-ISL').chosen({width: "182px", disable_search:true}).change(t,function(c, p){
+						console.log('change', p);
+					})
+				 	t.obj.opacityVal = 50;
+				 	// work with Opacity sliders /////////////////////////////////////////////
+					$("#" + t.id +"sldr").slider({ min: 0, max: 100, range: false, values: [t.obj.opacityVal] })
+					t.dynamicLayer.setOpacity(1 - t.obj.opacityVal/100); // set init opacity
+					$("#" + t.id +"sldr").on( "slide", function(c,ui){
+						
+						t.obj.opacityVal = 1 - ui.value/100;
+						t.dynamicLayer.setOpacity(t.obj.opacityVal);
+					})
+
+					// hide the framework toolbox	
+					$('#map-utils-control').hide();	
+					// create layers array
+					t.layersArray = t.dynamicLayer.layerInfos;
+					if (t.obj.stateSet == "no"){
+						t.map.setExtent(t.dynamicLayer.fullExtent.expand(1), true)
 					}
-				}));
-// Work with feature layers and map clicks //////////////////////////////////////////////////////////////////////////////////////////////////////////				
-				// set category layer
-				t.category = new FeatureLayer(t.url + "/0", { mode: FeatureLayer.MODE_SELECTION, outFields: ["*"] });
-				// set profile layer
-				t.profile = new FeatureLayer(t.url + "/2", { mode: FeatureLayer.MODE_SELECTION, outFields: ["*"] });
-				// set profile dropdown layer
-				t.profileDD = new FeatureLayer(t.url + "/3", { mode: FeatureLayer.MODE_SELECTION, outFields: ["*"] });
-				
-				$('#' + t.id + 'getHelpBtn').on('click',lang.hitch(t,function(){
-					var initHtml = $('#' + t.id + 'getHelpBtn').html();
-					if(initHtml == 'Start Using Water Scarcity Explorer'){
-						t.obj.visibleLayers = [17];
-						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-					}
-				}));
-				
-				// on map click
-				t.map.on("click", lang.hitch(t, function(evt) {
-					if (t.open == "yes"){	
-						t.obj.pnt = evt.mapPoint;
-						var q = new Query();
-						q.geometry = t.obj.pnt;
-						if(t.obj.accordSection == 'cat'){
-							t.category.selectFeatures(q,esri.layers.FeatureLayer.SELECTION_NEW);
-						} else if (t.obj.accordSection == 'pro'){
-							t.profile.selectFeatures(q,esri.layers.FeatureLayer.SELECTION_NEW);
-						}else{
-							'do nothing here'
+////////////////////////////// save and share code below ////////////////////////////////////////////////////////////
+					if(t.obj.stateSet == 'yes'){
+						// bring in layer defs var
+						t.obj.layerDefinitions = [];
+						// check the correct cb's
+						$.each(t.obj.cbTracker, function(i,v){
+							$('#' + v).prop('checked', true);
+						})
+						// put the radio button in the right place
+						$('#' + t.obj.radButtonTracker).prop('checked', true);
+						// remove all blueFont classes first before adding it back to current target
+						$.each($('#' + t.id + 'contentWrapper').find('.aoc-mainCB'), function(i,v){
+							$(v).removeClass('blueFont');
+						})
+						$('#' + t.obj.radButtonTracker).parent().prev().addClass('blueFont')
+						// if there is a selected layer set layer defs and add layer to map
+						t.obj.layerDefinitions[t.obj.queryTracker] = t.obj.query;
+						t.dynamicLayer.setLayerDefinitions(t.obj.layerDefinitions);
+						// if something has been selected slide down the correct att box and populate
+						if(t.obj.query){
+							$('#' + t.id + t.obj.toggleTracker + "Wrapper").slideDown();
+							$('#' + t.id + "selectedAttributes").show();
+							let v1 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[0]).html(t.obj.attsTracker[0]);
+							let v2 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[1]).html(t.obj.attsTracker[1])
+							// handle the report link for habitat
+							if(t.obj.toggleTracker == 'habitat'){
+								var html = "<a style='color:blue;' href='plugins/floodtags-test-app/assets/report.pdf#page=" + t.obj.attsTracker[2] + "' target='_blank'>Click to view in report</a>"
+								let v3 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[2]).html(html)
+							}else{
+								let v3 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[2]).html(t.obj.attsTracker[2])
+							}
+							let v4 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[3]).html(t.obj.attsTracker[3])
+							let v5 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[4]).html(t.obj.attsTracker[4])
+							let v6 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[5]).html(t.obj.attsTracker[5])
+							let v7 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[6]).html(t.obj.attsTracker[6])
+							let v8 = $($('#' + t.id + t.obj.toggleTracker + "Wrapper").find('.aoc-attText')[7]).html(t.obj.attsTracker[7])
 						}
-					}	
-				}));
-				// zoom end 
-				t.map.on("zoom-end", lang.hitch(t,function(e){
-					t.map.setMapCursor("pointer");
-				}));
-				// update end
-				t.map.on("update-end", lang.hitch(t,function(e){
-					t.map.setMapCursor("pointer");
-				}));				
-			},
-			commaSeparateNumber: function(val){
-				while (/(\d+)(\d{3})/.test(val.toString())){
-					val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
-				}
-				return val;
+						// display the correct layers on the map
+						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+						// check the correct checkboxes in the sup data section ////////////////////////
+						$.each(t.obj.supCheckArray,function(i,y){
+							$.each($('#' + t.id + 'supData input'),function(i,v){
+								if(y == v.value){
+									$(v).prop('checked', 'true');
+								}
+							})
+						})
+						// zoom to the correct area of the map
+						t.map.setExtent(t.obj.extent.expand(1.5), true);
+					}
+				});	
 			}
 		});
     }

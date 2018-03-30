@@ -1,200 +1,67 @@
-.dflex{
-	display:flex;
-	flex-direction:column;
-}		
-.nav-locations{
-	display:none !important;	
-}	
-.moreInfo{
-	font-size:1.4rem; color:blue; cursor:pointer;	display:inline-block;
+/* main style for the floodtags app */
+#dijit_layout_ContentPane_0powerBI1Wrapper .explorationContainer .exploreCanvas{
+	background-color: red !important;
 }
-.moreInfo:hover{
-	color:#2795b6;	
-}	
-.sh_multiYearSlider label{
-	position: absolute; width: 50px; margin-left: -26px; text-align: left; margin-top: 30px; transform: rotate(90deg);
-	font-size:10pt; text-align:left;
+.hide{
+	display: none;
 }
-
-.sh_multiYearSlider input{
-	width:85%; margin:auto; display:block;
+hr{
+	width: 97%; margin-left: 4px; margin: 15px 0 15px 4px;
 }
-
-	
-.active-result{
-	font-size:1.4rem;
+/*.mainContentWrapper{
+	margin: auto; padding-left: 4px;
+}*/
+.ind-stickyHeader{
+	position: absolute; z-index: 1000; background-color: white; box-shadow: 0 2px 2px rgba(16,22,26,.5);
+	padding-left: 4px;
 }
-abbr.search-choice-close {
-  cursor: pointer;
+.ind-mainRadBtnWrapper{
+	padding-left: 6px;
 }
-.sh_pdfLink{
-	font-size:1.4rem; color:blue !important; cursor:pointer;	
-}	
-.sh_pdfLink:active{
-	color:blue; font-weight:normal; 
+.ind-mainRadBtnWrapper label{
+	font-size: 15px;
 }
-.content .plugin-container-outer .plugin-container{
-	padding-bottom:0;	
+.ind-contentBelowHeader{
+	position: relative; margin-top: 134px; padding-left: 4px;
 }
-.sh_infoWrap{
-	display:none; padding:0px; color:#000; margin-bottom: 2px; 
-}	
-	
-.getHelpBtnWrap{
-    background-color: #eee; padding:10px 12px; display:none;
-}	
-.getHelpBtn{
-	background-color:#26648E; font-size:1.5rem; line-height:1.5; padding:.6rem 1.4rem; 
-    border:1px solid #ddd; text-align:center; cursor:pointer; color:#eee; border-radius:3px;
-}	
-.getHelpBtn:hover{
-	background-color:#35a1ab;	
-}	
-
-.sh_togYear{
-	width:55px; margin-top:5px;
+/* flood event legend styles */
+.ind-floodLegendWrapper{
+	margin: auto;
 }
-
-/* work with flex styling */
-.sh_btnFlex{
-	display:flex; padding:5px; justify-content:center; flex-wrap: wrap; 
+.ind-floodDivWrapper{
+	justify-content: center;
 }
-.sh_lineHeader {
-    font-size: 1.4rem;
-    text-decoration: underline;
-    text-align: left;
-    margin: 10px 4px 0px 5px;
+.ind-floodWrapper{
+	text-align: center;
 }
-
-/* charts */
-.sh_chWrap{
-	width:434px; margin-top:10px; margin-left:-5px;
+.ind-labelsWrapper{
+	display: flex;
 }
-.sh_chartBtnWrap{
-	display:flex; margin-top:5px; justify-content:center;
+/*.ind-labelsWrapper div{
+	display: flex;
+}*/
+.ind-floodDivWrapper{
+	display: flex;
 }
-.sh_yearMonthWrap{
-	display:flex; justify-content:center; margin-bottom:-10px; margin-top:5px;
+.ind-floodLegendDiv{
+	width: 100px; height: 20px; font-size: 14px; text-align: center; margin: 2px;
 }
-.sh_chartLgnd{
-	display:flex; font-size:1.2rem; margin-top:5px; justify-content:center; 
+/* style for power bi line chart for num of flood events */
+.ind-numFloodEventsHeader{
+	background-color: white; position: absolute; top: 124px; height: 35px; width: 98%;
 }
-.sh_lgndItemWrap{
-	display:flex; margin-right:10px;
+.ind-numFloodEvents{
+	margin-top: 30px;
 }
-.sh_liwRight{
-	margin-right:0;
+.ind-floodEventsXaxis{
+	background-color: white; width: 98%; position: absolute; top: 424px; height: 70px;
 }
-.sh_lgndItem{
-	width:23px; height:14px; margin-right:3px;
+.ind-placesAffectedHeader{
+	background-color: white; top: 607px; position: absolute; height: 35px; width: 98%;
 }
-.sh_domLgnd{
-	background-color:rgba(253, 191, 45, 0.7); border:1px solid rgba(253, 191, 45, 0.7);
+.ind-placesAffectedBottom{
+	width: 98%; position: absolute; top: 907px; background-color: white; height: 70px;
 }
-.sh_indLgnd{
-	background-color:rgba(70, 116, 193,0.7); border:1px solid rgba(70, 116, 193,0.7);
-}
-.sh_irrLgnd{
-	background-color:rgba(114, 172, 77, 0.7); border:1px solid rgba(114, 172, 77, 0.7);
-}
-.sh_livLgnd{
-	background-color:rgba(217, 83, 79, 0.7); border:1px solid rgba(68, 103, 46, 0.7);
-}
-.sh_avlLgnd{
-	background-color:rgba(68, 103, 46, 0); border:none; border-bottom:2pt solid #3783c7; height:8px;
-}
-.sh_avlmmLgnd{
-	background-color:rgba(190, 215, 237, 0.7); border-left:1px solid rgba(190, 215, 237, 0.7); border-right:1px solid rgba(190, 215, 237, 0.7); border-top:2px solid #82b2dc; border-bottom:2px solid #96bee2;
-}
-.sh_chartWrap{
-	display:none;
-}
-.sh_lineHeader3 {
-    font-size: 1.4rem; text-align: center; margin-top: 12px; margin-bottom: 10px; color: #21658c; font-weight:bold;
-}
-.sh_hide{
-	display:none;
-}
-.sh_sliderHide{
-	display:none;
-}
-.sh_exWrap p{
-	font-size: 1.4rem; margin-top: 5px; margin-bottom: 5px; text-align: left; color: #21658c; margin-left:10px;
-}
-.sh_yearChartLables{
-	display:flex; margin-top:-20px; justify-content:center; margin-left:-50px;
-}
-.sh_yearLabel{
-	width:110px; margin-left:80px;
-}
-.sh_depletionText{
-	margin-left:10px;
-}
-.sh_yearMapText{
-	/* color:#21658c ;background-color:white; font-size: 23px; width: 60px; */
-	color:#FFF; background-color:#21658c; font-size: 23px; width: 66px;
-}
-
-.sh_yearMonthHeader{
-	margin-right:10px;
-}
-/* Work with water basin categories attributes styling ////////////////////////////////////////////////////////////////////////////////////////////////////////*/
-.sh_attribute{
-	text-decoration:underline; 
-}
-.sh_attLine{
-	font-size:1.4rem; padding-bottom:6px; padding-left:5px; text-indent:-10px; margin-left:5px;	
-}	
-.sh_attSpan{
-	color: #21658c;
-}
-.sh_attPaddingBump{
-	padding-left:5px; padding-right:10px;	
-}	
-.sh_topAtt{
-	margin-top:15px;
-}
-.sh_zoomToText{
-	font-size:1.3rem; color:blue !important; cursor:pointer;
-}	
-.sh_zoomToText:hover{
-    color:#21658c !important;
-}
-.sh_waterBudgetWrap{
-	margin-left:15px;
-}
-.sh_opacity{
-	opacity: 0.4; cursor:default;
-}
-.sh_cursor{
-	cursor:default !important;
-}
-.sh_cursor:hover{
-	cursor:default !important;
-}
-/* Styles for the profile section of water share ////////////////////////////////////////////////////////////////////////////////////////////////////////*/
-.sh_proHeader{
-	margin-top:15px; margin-bottom:10px;
-}
-
-.sh_profileName{
-	font-size: 1.4rem; color: #21658c; font-weight:bold; margin-top:5px; margin-bottom:5px; display:none; 
-}
-.sh_profileAttWrap{
-	margin-top:10px; display:none;
-}
-.sh_groupCharts {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-    padding-bottom: 10px;
-    padding-top: 4px;
-    margin-bottom: 6px;
-}
-.sh_playStopWrap{
-	margin-top:50px;
-}
-.sh_hide{
-	display:none;
-}
-.tinner .tclose {
-    color: #2F6384 !important;
+.ind-liveHoodSpan{
+	font-size: 23px;
 }
