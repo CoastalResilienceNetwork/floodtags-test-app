@@ -27,7 +27,8 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 					var newdate = year + "-" + month + "-" + day;
 
 					console.log(newdate);
-					var url = "https://api.floodtags.com/v1/tags/fews-world/geojson?until=" + newdate + "&since=2018-03-06&apiKey=e0692cae-eb63-4160-8850-52be0d7ef7fe"
+					// https://api.floodtags.com/v1/tags/indonesia/geojson?until=2018-04-01T07:00:00.000Z&since=2018-03-20T07:00:00.000Z
+					var url = "https://api.floodtags.com/v1/tags/indonesia/geojson?until=" + newdate + "&since=2018-04-02&apiKey=e0692cae-eb63-4160-8850-52be0d7ef7fe"
 				    $.get( url, function( data ) {
 				      console.log(data)
 				      t.data2 = data;
